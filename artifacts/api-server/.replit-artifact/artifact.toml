@@ -1,0 +1,27 @@
+kind = "api"
+previewPath = "/api"
+title = "API Server"
+version = "1.0.0"
+id = "3B4_FFSkEVBkAeYMFRJ2e"
+
+[[services]]
+localPort = 8080
+name = "API Server"
+paths = ["/api"]
+
+[services.development]
+run = "LD_LIBRARY_PATH=/nix/store/dj06r96j515npcqi9d8af1d1c60bx2vn-gcc-14.3.0-lib/lib:$LD_LIBRARY_PATH /home/runner/workspace/.pythonlibs/bin/uvicorn main:app --host 0.0.0.0 --port 8080 --reload --app-dir /home/runner/workspace/artifacts/api-server"
+
+[services.production]
+
+[services.production.build]
+args = ["echo", "no-build-needed"]
+
+[services.production.run]
+args = ["sh", "-c", "LD_LIBRARY_PATH=/nix/store/dj06r96j515npcqi9d8af1d1c60bx2vn-gcc-14.3.0-lib/lib:$LD_LIBRARY_PATH /home/runner/workspace/.pythonlibs/bin/uvicorn main:app --host 0.0.0.0 --port 8080 --app-dir /home/runner/workspace/artifacts/api-server"]
+
+[services.production.run.env]
+PORT = "8080"
+
+[services.production.health.startup]
+path = "/api/healthz"

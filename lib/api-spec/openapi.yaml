@@ -1,0 +1,481 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: RouteGenie Traffic Intelligence API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: predict
+    description: ML inference
+  - name: events
+    description: Event management
+  - name: spatial
+    description: Spatial and dropdown data
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /predict:
+    post:
+      operationId: predictEvent
+      tags: [predict]
+      summary: Run ML inference for an event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PredictInput"
+      responses:
+        "200":
+          description: Prediction result with recommendations
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PredictResult"
+
+  /events:
+    get:
+      operationId: listEvents
+      tags: [events]
+      summary: List all events
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: corridor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: event_cause_ui
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Save a new planned event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventInput"
+      responses:
+        "201":
+          description: Created event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/{id}:
+    get:
+      operationId: getEvent
+      tags: [events]
+      summary: Get a single event with predictions
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Event detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "404":
+          description: Not found
+    put:
+      operationId: updateEvent
+      tags: [events]
+      summary: Update event status or details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventUpdate"
+      responses:
+        "200":
+          description: Updated event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/{id}/review:
+    put:
+      operationId: reviewEvent
+      tags: [events]
+      summary: Save post-event actual outcome
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewInput"
+      responses:
+        "200":
+          description: Updated event with review
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /hotspots:
+    get:
+      operationId: getHotspots
+      tags: [spatial]
+      summary: Return DBSCAN cluster centroids as hotspot data
+      responses:
+        "200":
+          description: Hotspot clusters
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Hotspot"
+
+  /corridors:
+    get:
+      operationId: listCorridors
+      tags: [spatial]
+      summary: List corridor names for dropdowns
+      responses:
+        "200":
+          description: Corridor list with centroids
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CorridorInfo"
+
+  /zones:
+    get:
+      operationId: listZones
+      tags: [spatial]
+      summary: List zone names for dropdowns
+      responses:
+        "200":
+          description: Zone names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /junctions:
+    get:
+      operationId: listJunctions
+      tags: [spatial]
+      summary: List junction names for dropdowns
+      responses:
+        "200":
+          description: Junction names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /police_stations:
+    get:
+      operationId: listPoliceStations
+      tags: [spatial]
+      summary: List police station names for dropdowns
+      responses:
+        "200":
+          description: Police station names
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    PredictInput:
+      type: object
+      required:
+        - event_cause_ui
+        - corridor
+        - zone
+        - hour
+        - latitude
+        - longitude
+      properties:
+        event_cause_ui:
+          type: string
+        corridor:
+          type: string
+        zone:
+          type: string
+        junction:
+          type: ["string", "null"]
+        police_station:
+          type: ["string", "null"]
+        hour:
+          type: integer
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+    Recommendation:
+      type: object
+      required: [action, why]
+      properties:
+        action:
+          type: string
+        why:
+          type: string
+
+    PredictResult:
+      type: object
+      required:
+        - priority_probability
+        - closure_probability
+        - closure_predicted
+        - predicted_resolution_minutes
+        - risk_score
+        - risk_label
+        - duration_band
+        - recommendations
+      properties:
+        priority_probability:
+          type: number
+        closure_probability:
+          type: number
+        closure_predicted:
+          type: boolean
+        predicted_resolution_minutes:
+          type: number
+        risk_score:
+          type: number
+        risk_label:
+          type: string
+        duration_band:
+          type: string
+        recommendations:
+          type: array
+          items:
+            $ref: "#/components/schemas/Recommendation"
+
+    EventInput:
+      type: object
+      required:
+        - event_name
+        - event_cause_ui
+        - corridor
+        - zone
+        - latitude
+        - longitude
+        - event_date
+        - event_hour
+        - crowd_estimate
+        - risk_score
+        - priority_probability
+        - closure_predicted
+        - resolution_minutes
+        - recommendations_json
+      properties:
+        event_name:
+          type: string
+        event_cause_ui:
+          type: string
+        corridor:
+          type: string
+        zone:
+          type: string
+        junction:
+          type: ["string", "null"]
+        police_station:
+          type: ["string", "null"]
+        latitude:
+          type: number
+        longitude:
+          type: number
+        event_date:
+          type: string
+        event_hour:
+          type: integer
+        crowd_estimate:
+          type: string
+        risk_score:
+          type: number
+        priority_probability:
+          type: number
+        closure_predicted:
+          type: boolean
+        resolution_minutes:
+          type: number
+        recommendations_json:
+          type: string
+        status:
+          type: string
+
+    EventUpdate:
+      type: object
+      properties:
+        status:
+          type: ["string", "null"]
+        event_name:
+          type: ["string", "null"]
+
+    ReviewInput:
+      type: object
+      required:
+        - actual_delay_minutes
+        - actual_closures
+      properties:
+        actual_delay_minutes:
+          type: number
+        actual_closures:
+          type: boolean
+
+    Event:
+      type: object
+      required:
+        - id
+        - event_name
+        - event_cause_ui
+        - corridor
+        - zone
+        - latitude
+        - longitude
+        - event_date
+        - event_hour
+        - crowd_estimate
+        - risk_score
+        - priority_probability
+        - closure_predicted
+        - resolution_minutes
+        - recommendations_json
+        - status
+        - created_at
+      properties:
+        id:
+          type: integer
+        event_name:
+          type: string
+        event_cause_ui:
+          type: string
+        corridor:
+          type: string
+        zone:
+          type: string
+        junction:
+          type: ["string", "null"]
+        police_station:
+          type: ["string", "null"]
+        latitude:
+          type: number
+        longitude:
+          type: number
+        event_date:
+          type: string
+        event_hour:
+          type: integer
+        crowd_estimate:
+          type: string
+        risk_score:
+          type: number
+        priority_probability:
+          type: number
+        closure_predicted:
+          type: boolean
+        resolution_minutes:
+          type: number
+        recommendations_json:
+          type: string
+        status:
+          type: string
+        actual_delay_minutes:
+          type: ["number", "null"]
+        actual_closures:
+          type: ["boolean", "null"]
+        created_at:
+          type: string
+
+    Hotspot:
+      type: object
+      required: [cluster_id, lat, lng, count, risk_score]
+      properties:
+        cluster_id:
+          type: integer
+        lat:
+          type: number
+        lng:
+          type: number
+        count:
+          type: integer
+        risk_score:
+          type: number
+
+    CorridorInfo:
+      type: object
+      required: [name, lat, lng]
+      properties:
+        name:
+          type: string
+        lat:
+          type: number
+        lng:
+          type: number

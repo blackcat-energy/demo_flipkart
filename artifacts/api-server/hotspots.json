@@ -1,0 +1,296 @@
+[
+  {
+    "cluster_id": 0,
+    "lat": 12.9974,
+    "lng": 77.58919,
+    "count": 5342,
+    "risk_score": 100.0
+  },
+  {
+    "cluster_id": 3,
+    "lat": 12.94812,
+    "lng": 77.69267,
+    "count": 461,
+    "risk_score": 26.9
+  },
+  {
+    "cluster_id": 6,
+    "lat": 12.97858,
+    "lng": 77.5108,
+    "count": 325,
+    "risk_score": 24.9
+  },
+  {
+    "cluster_id": 1,
+    "lat": 12.91696,
+    "lng": 77.58039,
+    "count": 253,
+    "risk_score": 23.8
+  },
+  {
+    "cluster_id": 2,
+    "lat": 12.89746,
+    "lng": 77.5986,
+    "count": 170,
+    "risk_score": 22.5
+  },
+  {
+    "cluster_id": 7,
+    "lat": 13.06367,
+    "lng": 77.45792,
+    "count": 154,
+    "risk_score": 22.3
+  },
+  {
+    "cluster_id": 20,
+    "lat": 12.94073,
+    "lng": 77.74707,
+    "count": 72,
+    "risk_score": 21.1
+  },
+  {
+    "cluster_id": 14,
+    "lat": 13.0455,
+    "lng": 77.64376,
+    "count": 67,
+    "risk_score": 21.0
+  },
+  {
+    "cluster_id": 5,
+    "lat": 12.97247,
+    "lng": 77.75004,
+    "count": 61,
+    "risk_score": 20.9
+  },
+  {
+    "cluster_id": 9,
+    "lat": 12.9266,
+    "lng": 77.54863,
+    "count": 41,
+    "risk_score": 20.6
+  },
+  {
+    "cluster_id": 28,
+    "lat": 12.90619,
+    "lng": 77.54732,
+    "count": 36,
+    "risk_score": 20.5
+  },
+  {
+    "cluster_id": 13,
+    "lat": 12.85478,
+    "lng": 77.58874,
+    "count": 29,
+    "risk_score": 20.4
+  },
+  {
+    "cluster_id": 25,
+    "lat": 12.92737,
+    "lng": 77.59945,
+    "count": 29,
+    "risk_score": 20.4
+  },
+  {
+    "cluster_id": 21,
+    "lat": 13.00072,
+    "lng": 77.75746,
+    "count": 28,
+    "risk_score": 20.4
+  },
+  {
+    "cluster_id": 23,
+    "lat": 12.95927,
+    "lng": 77.65544,
+    "count": 26,
+    "risk_score": 20.4
+  },
+  {
+    "cluster_id": 10,
+    "lat": 12.83941,
+    "lng": 77.67726,
+    "count": 24,
+    "risk_score": 20.4
+  },
+  {
+    "cluster_id": 12,
+    "lat": 13.00703,
+    "lng": 77.5273,
+    "count": 23,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 24,
+    "lat": 12.90583,
+    "lng": 77.57359,
+    "count": 21,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 22,
+    "lat": 12.88288,
+    "lng": 77.75402,
+    "count": 19,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 4,
+    "lat": 12.98761,
+    "lng": 77.73383,
+    "count": 17,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 15,
+    "lat": 12.87442,
+    "lng": 77.62499,
+    "count": 17,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 30,
+    "lat": 12.91627,
+    "lng": 77.63397,
+    "count": 17,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 32,
+    "lat": 12.98768,
+    "lng": 77.47485,
+    "count": 17,
+    "risk_score": 20.3
+  },
+  {
+    "cluster_id": 18,
+    "lat": 12.81999,
+    "lng": 77.68787,
+    "count": 15,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 31,
+    "lat": 13.11217,
+    "lng": 77.57949,
+    "count": 15,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 8,
+    "lat": 12.85551,
+    "lng": 77.66476,
+    "count": 14,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 16,
+    "lat": 12.95195,
+    "lng": 77.62117,
+    "count": 14,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 17,
+    "lat": 13.08279,
+    "lng": 77.54969,
+    "count": 13,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 33,
+    "lat": 13.03152,
+    "lng": 77.55991,
+    "count": 13,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 34,
+    "lat": 12.87829,
+    "lng": 77.61038,
+    "count": 13,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 26,
+    "lat": 12.93849,
+    "lng": 77.63474,
+    "count": 12,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 37,
+    "lat": 13.05768,
+    "lng": 77.54633,
+    "count": 12,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 39,
+    "lat": 13.05785,
+    "lng": 77.63264,
+    "count": 12,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 11,
+    "lat": 13.02241,
+    "lng": 77.60206,
+    "count": 11,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 27,
+    "lat": 12.89005,
+    "lng": 77.56401,
+    "count": 11,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 36,
+    "lat": 12.90449,
+    "lng": 77.47102,
+    "count": 11,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 41,
+    "lat": 12.96205,
+    "lng": 77.5342,
+    "count": 11,
+    "risk_score": 20.2
+  },
+  {
+    "cluster_id": 19,
+    "lat": 12.91342,
+    "lng": 77.67756,
+    "count": 10,
+    "risk_score": 20.1
+  },
+  {
+    "cluster_id": 29,
+    "lat": 13.19069,
+    "lng": 77.64576,
+    "count": 10,
+    "risk_score": 20.1
+  },
+  {
+    "cluster_id": 35,
+    "lat": 12.96775,
+    "lng": 77.66022,
+    "count": 10,
+    "risk_score": 20.1
+  },
+  {
+    "cluster_id": 40,
+    "lat": 13.066,
+    "lng": 77.64167,
+    "count": 10,
+    "risk_score": 20.1
+  },
+  {
+    "cluster_id": 38,
+    "lat": 12.94262,
+    "lng": 77.62249,
+    "count": 9,
+    "risk_score": 20.1
+  }
+]

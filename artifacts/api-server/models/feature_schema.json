@@ -1,0 +1,86 @@
+{
+  "cat_features": [
+    "event_type",
+    "event_cause",
+    "veh_type",
+    "corridor",
+    "zone",
+    "junction",
+    "police_station"
+  ],
+  "num_features": [
+    "latitude",
+    "longitude",
+    "hour",
+    "day_of_week",
+    "month",
+    "is_weekend",
+    "is_peak",
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos"
+  ],
+  "all_features": [
+    "event_type",
+    "event_cause",
+    "veh_type",
+    "corridor",
+    "zone",
+    "junction",
+    "police_station",
+    "latitude",
+    "longitude",
+    "hour",
+    "day_of_week",
+    "month",
+    "is_weekend",
+    "is_peak",
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos"
+  ],
+  "targets": {
+    "priority_model": "priority_bin (0=Low, 1=High)",
+    "closure_model": "closure_bin (0=No, 1=Yes)",
+    "resolution_model": "resolution_minutes (float, minutes)"
+  },
+  "forbidden_leakage_features": {
+    "priority_model": [
+      "priority",
+      "priority_bin",
+      "closure_bin",
+      "requires_road_closure",
+      "closed_datetime",
+      "resolution_minutes"
+    ],
+    "closure_model": [
+      "requires_road_closure",
+      "closure_bin",
+      "priority",
+      "priority_bin",
+      "closed_datetime",
+      "resolution_minutes"
+    ],
+    "resolution_model": []
+  },
+  "catboost_cat_features": [
+    "event_type",
+    "event_cause",
+    "veh_type",
+    "corridor",
+    "zone",
+    "junction",
+    "police_station"
+  ],
+  "lgbm_label_encoded_cats": [
+    "event_type",
+    "event_cause",
+    "veh_type",
+    "corridor",
+    "zone",
+    "junction",
+    "police_station"
+  ]
+}
