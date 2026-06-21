@@ -1,7 +1,7 @@
 FROM node:20-slim AS frontend
 
 WORKDIR /app
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.17.1 --activate
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json tsconfig.base.json ./
 COPY lib ./lib

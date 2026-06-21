@@ -1,6 +1,7 @@
 {
   "name": "workspace",
   "version": "0.0.0",
+  "packageManager": "pnpm@10.17.1",
   "license": "MIT",
   "scripts": {
     "preinstall": "node -e \"const fs=require('fs'); for (const file of ['package-lock.json','yarn.lock']) fs.rmSync(file,{force:true}); if (!/^pnpm\\//.test(process.env.npm_config_user_agent||'')) { console.error('Use pnpm instead'); process.exit(1); }\"",
