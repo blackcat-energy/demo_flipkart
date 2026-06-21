@@ -10,6 +10,8 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from static_data import (
@@ -200,6 +202,12 @@ init_db()
 
 # ── FastAPI ──────────────────────────────────────────────────────────────────
 app = FastAPI(title="RouteGenie API", root_path="/api")
+
+@app.middleware("http")
+async def strip_api_prefix(request, call_next):
+    if request.scope.get("path", "").startswith("/api/"):
+        request.scope["path"] = request.scope["path"][4:]
+    return await call_next(request)
 
 app.add_middleware(
     CORSMiddleware,
@@ -599,3 +607,24 @@ def get_junction_coords():
 @app.get("/corridor_connections")
 def get_corridor_connections():
     return CORRIDOR_CONNECTIONS
+
+
+# ── Frontend static hosting for single-service deployment ───────────────────
+FRONTEND_DIST = BASE_DIR.parent / "routegenie" / "dist" / "public"
+
+if FRONTEND_DIST.exists():
+    assets_dir = FRONTEND_DIST / "assets"
+    public_dir = FRONTEND_DIST / "public"
+
+    if assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
+
+    if public_dir.exists():
+        app.mount("/public", StaticFiles(directory=public_dir), name="public")
+
+    @app.get("/{full_path:path}")
+    def serve_frontend(full_path: str):
+        requested = FRONTEND_DIST / full_path
+        if requested.is_file():
+            return FileResponse(requested)
+        return FileResponse(FRONTEND_DIST / "index.html")

@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: routegenie
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
