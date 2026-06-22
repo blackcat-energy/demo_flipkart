@@ -11,7 +11,6 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from static_data import (
@@ -613,15 +612,6 @@ def get_corridor_connections():
 FRONTEND_DIST = BASE_DIR.parent / "routegenie" / "dist" / "public"
 
 if FRONTEND_DIST.exists():
-    assets_dir = FRONTEND_DIST / "assets"
-    public_dir = FRONTEND_DIST / "public"
-
-    if assets_dir.exists():
-        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
-
-    if public_dir.exists():
-        app.mount("/public", StaticFiles(directory=public_dir), name="public")
-
     @app.get("/{full_path:path}")
     def serve_frontend(full_path: str):
         requested = FRONTEND_DIST / full_path
